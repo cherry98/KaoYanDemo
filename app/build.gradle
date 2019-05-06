@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.kaoyan.kaoyandemo"
-        minSdkVersion 15
+        minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -30,18 +30,21 @@ repositories {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0-alpha05'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha05'
-
     implementation 'com.jakewharton:butterknife:10.1.0'
     implementation 'com.jakewharton:butterknife-compiler:10.0.0'
     configurations {
 //这里要排除到这个包，这个包会与 com.google.guava 冲突，导致编译不过
         all*.exclude group: 'com.google.guava', module: 'listenablefuture'
     }
+    implementation files('libs/afinal_0.5.1_bin.jar')
+    implementation files('libs/fastjson-1.2.4.jar')
+
+    implementation "com.google.android.material:material:1.1.0-alpha01"
 }

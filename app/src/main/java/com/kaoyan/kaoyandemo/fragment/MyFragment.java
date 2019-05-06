@@ -1,13 +1,23 @@
 package com.kaoyan.kaoyandemo.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.kaoyan.kaoyandemo.R;
+import com.kaoyan.kaoyandemo.activity.MyCollectActivity;
+import com.kaoyan.kaoyandemo.activity.MyInformationActivity;
+import com.kaoyan.kaoyandemo.utils.SharedPreferencesUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,12 +29,30 @@ public class MyFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @BindView(R.id.login)
+    TextView login;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my, container, false);
+        View inflate = inflater.inflate(R.layout.fragment_my, container, false);
+        ButterKnife.bind(this, inflate);
+        if (SharedPreferencesUtils.getLoggedStatus(getContext())) {
+            login.setVisibility(View.VISIBLE);
+        } else {
+            login.setVisibility(View.GONE);
+        }
+        return inflate;
     }
 
+    @OnClick(R.id.information)
+    public void informationClick() {
+        startActivity(new Intent(getContext(), MyInformationActivity.class));
+    }
+
+    @OnClick(R.id.collect)
+    public void collectClick() {
+        startActivity(new Intent(getContext(), MyCollectActivity.class));
+    }
 }
