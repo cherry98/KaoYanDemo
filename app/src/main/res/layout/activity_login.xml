@@ -10,9 +10,7 @@
         android:layout_height="40dp"
         android:layout_margin="20dp"
         android:background="@drawable/input_bg"
-        android:hint="请输入您的手机号码"
-        android:inputType="number"
-        android:maxLength="11"
+        android:hint="请输入您的账号"
         android:paddingLeft="10dp"
         android:textSize="14sp" />
 
@@ -56,7 +54,8 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:gravity="center_vertical"
-            android:text="忘记密码" />
+            android:text="忘记密码"
+            android:visibility="gone" />
     </LinearLayout>
 
 </LinearLayout>

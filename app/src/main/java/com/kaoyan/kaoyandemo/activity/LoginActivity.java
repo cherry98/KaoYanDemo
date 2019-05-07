@@ -44,18 +44,9 @@ public class LoginActivity extends BaseActivity {
     @OnClick(R.id.register)
     public void registerClick() {
         Intent intent = new Intent(this, RegisterActivity.class);
-        intent.putExtra("type", 0);//注册
         startActivityForResult(intent, 0);
     }
 
-    @OnClick(R.id.forget_pwd)
-    public void forgetClick() {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        intent.putExtra("type", 1);//修改密码
-        startActivityForResult(intent, 0);
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == RESULT_OK && requestCode == 0 && data != null) {
             phone.setText(data.getStringExtra("account"));

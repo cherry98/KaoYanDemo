@@ -20,10 +20,15 @@ public class MajorAdapter extends RecyclerView.Adapter {
 
     private Context context;
     private List list;
+    private OnItemClickListener onItemClickListener;
 
     public MajorAdapter(Context context, List list) {
         this.context = context;
         this.list = list;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -37,6 +42,13 @@ public class MajorAdapter extends RecyclerView.Adapter {
         ViewHolder viewHolder = (ViewHolder) holder;
         viewHolder.majorid.setText(((Map) list.get(position)).get("majorid") + "");
         viewHolder.majorname.setText(((Map) list.get(position)).get("majorname") + "");
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemClickListener.onItemClick(((Map) list.get(position)).get("majorid") + "",
+                    ((Map) list.get(position)).get("majorname") + "");
+            }
+        });
     }
 
     @Override
@@ -54,5 +66,9 @@ public class MajorAdapter extends RecyclerView.Adapter {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(String majorid, String majorname);
     }
 }

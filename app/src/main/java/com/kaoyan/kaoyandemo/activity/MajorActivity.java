@@ -1,5 +1,6 @@
 package com.kaoyan.kaoyandemo.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.alibaba.fastjson.JSON;
@@ -20,6 +21,7 @@ public class MajorActivity extends BaseActivity {
 
     @BindView(R.id.recyclerMajorView)
     RecyclerView recyclerMajorView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,29 +39,38 @@ public class MajorActivity extends BaseActivity {
 
     private void getMyCollectList() {
         String json = "[\n" +
-                "    {\n" +
-                "        \"majorid\":\"1\",\n" +
-                "        \"majorname\":\"北大\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"majorid\":\"1\",\n" +
-                "        \"majorname\":\"北大\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"majorid\":\"1\",\n" +
-                "        \"majorname\":\"北大\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"majorid\":\"1\",\n" +
-                "        \"majorname\":\"北大\"\n" +
-                "    }\n" +
-                "]";
+            "    {\n" +
+            "        \"majorid\":\"1\",\n" +
+            "        \"majorname\":\"北大\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "        \"majorid\":\"1\",\n" +
+            "        \"majorname\":\"北大\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "        \"majorid\":\"1\",\n" +
+            "        \"majorname\":\"北大\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "        \"majorid\":\"1\",\n" +
+            "        \"majorname\":\"北大\"\n" +
+            "    }\n" +
+            "]";
         ArrayList<Map<String, String>> list = (ArrayList<Map<String, String>>) JSON.parseObject(json, List.class);
         MajorAdapter majorAdapter = new MajorAdapter(this, list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerMajorView.setLayoutManager(layoutManager);
         recyclerMajorView.setHasFixedSize(true);
         recyclerMajorView.setAdapter(majorAdapter);
+        majorAdapter.setOnItemClickListener(new MajorAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(String majorid, String majorname) {
+                Intent intent = new Intent();
+                intent.putExtra("majorid", majorid);
+                intent.putExtra("majorname", majorname);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
     }
-
 }

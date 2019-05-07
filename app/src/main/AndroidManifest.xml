@@ -11,13 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".activity.BaseActivity" />
         <activity
             android:name=".activity.LoginActivity"
@@ -28,8 +22,19 @@
         <activity android:name=".activity.PostMessageActivity" />
         <activity android:name=".activity.MyInformationActivity" />
         <activity android:name=".activity.MyCollectActivity" />
+        <activity android:name=".activity.SearchActivity" />
+        <activity
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activity.SchoolActivity" />
-        <activity android:name=".activity.MajorActivity"/>
+        <activity android:name=".activity.MajorActivity" />
     </application>
 
 </manifest>
