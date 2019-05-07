@@ -12,8 +12,10 @@ import com.kaoyan.kaoyandemo.R;
 import com.kaoyan.kaoyandemo.utils.Api;
 import com.kaoyan.kaoyandemo.utils.SharedPreferencesUtils;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,12 +73,25 @@ public class LoginActivity extends BaseActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.e("hahahahah", response.body().toString());
+                try {
+                    String str = new String(response.body().bytes());
 
-                Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                SharedPreferencesUtils.setLoggedStatus(LoginActivity.this, true);
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                finish();
+                    JSONObject jsonObject = new JSONObject(str);
+                    int status = jsonObject.getInt("status");
+                    if (status == 1) {
+                        String userId = jsonObject.optJSONObject("result").getString("userId");
+                        SharedPreferencesUtils.setUserId(LoginActivity.this, userId);
+                        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                        SharedPreferencesUtils.setLoggedStatus(LoginActivity.this, true);
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
+                    } else {
+                        Toast.makeText(LoginActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

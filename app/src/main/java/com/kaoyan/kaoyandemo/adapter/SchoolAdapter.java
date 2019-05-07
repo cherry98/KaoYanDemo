@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kaoyan.kaoyandemo.R;
+import com.kaoyan.kaoyandemo.info.SchoolInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -19,14 +20,14 @@ import butterknife.ButterKnife;
 public class SchoolAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private List list;
+    private List<SchoolInfo> list;
     private OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public SchoolAdapter(Context context, List list) {
+    public SchoolAdapter(Context context, List<SchoolInfo> list) {
         this.context = context;
         this.list = list;
     }
@@ -40,13 +41,13 @@ public class SchoolAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-        viewHolder.schoolid.setText(((Map) list.get(position)).get("schoolid") + "");
-        viewHolder.schoolname.setText(((Map) list.get(position)).get("schoolname") + "");
+        SchoolInfo schoolInfo = list.get(position);
+        viewHolder.schoolid.setText(schoolInfo.getSchoolId());
+        viewHolder.schoolname.setText(schoolInfo.getSchoolName());
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onItemClickListener.onItemClick(((Map) list.get(position)).get("schoolid") + "",
-                    ((Map) list.get(position)).get("schoolname") + "");
+                onItemClickListener.onItemClick(schoolInfo.getSchoolId(), schoolInfo.getSchoolName());
             }
         });
     }

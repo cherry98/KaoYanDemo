@@ -41,6 +41,8 @@ public class AttentionFragment extends Fragment {
     Button add2;
     @BindView(R.id.add_3)
     Button add3;
+    @BindView(R.id.reset)
+    Button reset;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,6 +81,7 @@ public class AttentionFragment extends Fragment {
                 add1.setText(names[0]);
                 add2.setText(names[1]);
             } else if (names.length == 3) {
+                reset.setVisibility(View.VISIBLE);
                 add1.setVisibility(View.VISIBLE);
                 add2.setVisibility(View.VISIBLE);
                 add3.setVisibility(View.VISIBLE);
@@ -92,31 +95,33 @@ public class AttentionFragment extends Fragment {
         super.onResume();
     }
 
+    @OnClick(R.id.reset)
+    public void resetCLick() {
+        add1.setText("添加院校");
+        add2.setText("添加院校");
+        add3.setText("添加院校");
+        add1.setVisibility(View.VISIBLE);
+        add2.setVisibility(View.GONE);
+        add3.setVisibility(View.GONE);
+        add1.setClickable(true);
+        add2.setClickable(true);
+        add3.setClickable(true);
+        reset.setVisibility(View.GONE);
+    }
+
     @OnClick(R.id.add_1)
     public void addClick1() {
-        if ("添加院校".equals(add1.getText().toString())) {
-            startActivityForResult(new Intent(getContext(), SchoolActivity.class), 1);
-        } else {
-            startActivityForResult(new Intent(getContext(), SchoolActivity.class), 4);
-        }
+        startActivityForResult(new Intent(getContext(), SchoolActivity.class), 1);
     }
 
     @OnClick(R.id.add_2)
     public void addClick2() {
-        if ("添加院校".equals(add3.getText().toString())) {
-            startActivityForResult(new Intent(getContext(), SchoolActivity.class), 2);
-        } else {
-            startActivityForResult(new Intent(getContext(), SchoolActivity.class), 5);
-        }
+        startActivityForResult(new Intent(getContext(), SchoolActivity.class), 2);
     }
 
     @OnClick(R.id.add_3)
     public void addClick3() {
-        if ("添加院校".equals(add3.getText().toString())) {
-            startActivityForResult(new Intent(getContext(), SchoolActivity.class), 3);
-        } else {
-            startActivityForResult(new Intent(getContext(), SchoolActivity.class), 6);
-        }
+        startActivityForResult(new Intent(getContext(), SchoolActivity.class), 3);
     }
 
     @Override
@@ -128,34 +133,21 @@ public class AttentionFragment extends Fragment {
                 add1.setText(data.getStringExtra("schoolname"));
                 str = add1.getText().toString();
                 SharedPreferencesUtils.setAttentionSchool(getContext(), str);//no
+                add1.setClickable(false);
+                reset.setVisibility(View.GONE);
             } else if (requestCode == 2) {
                 add2.setText(data.getStringExtra("schoolname"));
                 str = SharedPreferencesUtils.getAttentionSchoolName(getContext());
                 SharedPreferencesUtils.setAttentionSchool(getContext(), str + "," + add2.getText().toString());
+                add2.setClickable(false);
+                reset.setVisibility(View.GONE);
             } else if (requestCode == 3) {
                 add3.setText(data.getStringExtra("schoolname"));
                 str = SharedPreferencesUtils.getAttentionSchoolName(getContext());
                 SharedPreferencesUtils.setAttentionSchool(getContext(), str + "," + add3.getText().toString());
-            } else if (requestCode == 4) {
-                add1.setText(data.getStringExtra("schoolname"));
-                String[] names = SharedPreferencesUtils.getAttentionSchoolName(getContext()).split(",");
-                if (names.length == 1) {
-                    SharedPreferencesUtils.setAttentionSchool(getContext(), add1.getText().toString());
-                } else {
-                    String str1 = SharedPreferencesUtils.getAttentionSchoolName(getContext());
-                    Matcher matcher = Pattern.compile(",").matcher(str1);
-                    String old1 = str1.substring(0, matcher.start());
-//                    str1.replace(old1)
-                }
-            } else if (requestCode == 5) {
-                add2.setText(data.getStringExtra("schoolname"));
-            } else if (requestCode == 6) {
-                add3.setText(data.getStringExtra("schoolname"));
+                add3.setClickable(false);
+                reset.setVisibility(View.VISIBLE);
             }
-
-            String text1 = add1.getText().toString();
-            String text2 = add2.getText().toString();
-            String text3 = add3.getText().toString();
         }
     }
 }

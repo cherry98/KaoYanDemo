@@ -8,9 +8,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.kaoyan.kaoyandemo.R;
+import com.kaoyan.kaoyandemo.info.CommunityInfo;
 
 import java.util.List;
-import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,13 +20,18 @@ import butterknife.ButterKnife;
 public class CommunityAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private List list;
+    private List<CommunityInfo> list;
     private boolean isMyCollect;
+    private OnClickCollectListener onClickCollectListener;
 
-    public CommunityAdapter(Context context, List list, boolean isMyCollect) {
+    public CommunityAdapter(Context context, List<CommunityInfo> list, boolean isMyCollect) {
         this.context = context;
         this.list = list;
         this.isMyCollect = isMyCollect;
+    }
+
+    public void setOnClickCollectListener(OnClickCollectListener onClickCollectListener) {
+        this.onClickCollectListener = onClickCollectListener;
     }
 
     @Override
@@ -38,14 +43,21 @@ public class CommunityAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-        viewHolder.name.setText(((Map) list.get(position)).get("community_name") + "");
-        viewHolder.content.setText(((Map) list.get(position)).get("community_content") + "");
-        viewHolder.time.setText(((Map) list.get(position)).get("community_time") + "");
+        CommunityInfo communityInfo = list.get(position);
+        viewHolder.name.setText(communityInfo.getTitle());
+        viewHolder.content.setText(communityInfo.getContent());
         if (isMyCollect) {
             viewHolder.collect.setVisibility(View.GONE);
         } else {
             viewHolder.collect.setVisibility(View.VISIBLE);
+            viewHolder.collect.setChecked(communityInfo.isCheck());
         }
+        viewHolder.collect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickCollectListener.click(position, viewHolder.collect.isChecked());
+            }
+        });
     }
 
     @Override
@@ -67,5 +79,9 @@ public class CommunityAdapter extends RecyclerView.Adapter {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface OnClickCollectListener {
+        void click(int postion, boolean isAdd);
     }
 }

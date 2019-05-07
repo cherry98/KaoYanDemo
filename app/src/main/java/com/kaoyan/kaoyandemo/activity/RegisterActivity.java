@@ -11,11 +11,6 @@ import android.widget.Toast;
 
 import com.kaoyan.kaoyandemo.R;
 import com.kaoyan.kaoyandemo.utils.Api;
-import com.kaoyan.kaoyandemo.utils.Urls;
-
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
 
 import org.json.JSONObject;
 
@@ -27,6 +22,7 @@ import androidx.appcompat.app.AlertDialog;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -124,10 +120,10 @@ public class RegisterActivity extends BaseActivity {
         params.put("sex", sex.getText().toString());
         params.put("majorId", majorId);
         params.put("phone", phone.getText().toString());
-        Call<Object> call = api.register(new JSONObject(params).toString());
-        call.enqueue(new Callback<Object>() {
+        Call<ResponseBody> call = api.register(new JSONObject(params).toString());
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
@@ -139,7 +135,7 @@ public class RegisterActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(RegisterActivity.this, "注册失败，请稍后再试", Toast.LENGTH_SHORT).show();
             }
         });

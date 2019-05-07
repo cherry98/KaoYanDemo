@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kaoyan.kaoyandemo.R;
+import com.kaoyan.kaoyandemo.info.SearchInfo;
 
 import java.util.List;
 
@@ -18,9 +19,9 @@ import butterknife.ButterKnife;
 public class SearchAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private List list;
+    private List<SearchInfo> list;
 
-    public SearchAdapter(Context context, List list) {
+    public SearchAdapter(Context context, List<SearchInfo> list) {
         this.context = context;
         this.list = list;
     }
@@ -35,7 +36,11 @@ public class SearchAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-
+        SearchInfo searchInfo = list.get(position);
+        viewHolder.school.setText("学校名称：" + searchInfo.getSchoolName());
+        viewHolder.department.setText("院系名称：" + searchInfo.getCalssName());
+        viewHolder.major.setText("专业名称：" + searchInfo.getMajorName());
+        viewHolder.major_des.setText("专业描述：" + searchInfo.getMajorDesc());
     }
 
     @Override

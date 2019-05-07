@@ -14,13 +14,45 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("register")
-    Call<Object> register(@Field("vars") String vars);
+    Call<ResponseBody> register(@Field("vars") String vars);
 
     @FormUrlEncoded
     @POST("kaoyanList")
-    Call<Object> kaoyanList(@Field("vars") String vars);
+    Call<ResponseBody> kaoyanList(@Field("vars") String vars);
 
     @FormUrlEncoded
     @POST("setPost")
-    Call<Object> setPost(@Field("vars") String vars);
+    Call<ResponseBody> setPost(@Field("vars") String vars);
+
+    @FormUrlEncoded
+    @POST("postList")
+    Call<ResponseBody> postList(@Field("vars") String vars);
+
+    @FormUrlEncoded
+    @POST("setCollect")
+    Call<ResponseBody> setCollect(@Field("vars") String vars);
+
+    @FormUrlEncoded
+    @POST("deleteCollect")
+    Call<ResponseBody> deleteCollect(@Field("vars") String vars);
+
+    @FormUrlEncoded
+    @POST("collectList")
+    Call<ResponseBody> collectList(@Field("vars") String vars);
+
+    @FormUrlEncoded
+    @POST("userData")
+    Call<ResponseBody> userData(@Field("vars") String vars);
+
+    @FormUrlEncoded
+    @POST("editUserData")
+    Call<ResponseBody> editUserData(@Field("vars") String vars);
+
+    @FormUrlEncoded
+    @POST("majorList")
+    Call<ResponseBody> majorList(@Field("vars") String vars);
+
+    @POST("schoolList")
+    Call<ResponseBody> schoolList();
+
 }

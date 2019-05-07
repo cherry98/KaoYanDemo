@@ -18,6 +18,7 @@ import androidx.appcompat.app.ActionBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -64,16 +65,16 @@ public class PostMessageActivity extends BaseActivity {
         params.put("title", title.getText().toString());
         params.put("content", content.getText().toString());
         params.put("userId", SharedPreferencesUtils.getUserId(this));
-        Call<Object> call = api.setPost(new JSONObject(params).toString());
-        call.enqueue(new Callback<Object>() {
+        Call<ResponseBody> call = api.setPost(new JSONObject(params).toString());
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Toast.makeText(PostMessageActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
                 finish();
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(PostMessageActivity.this, "发布失败，请稍后再试", Toast.LENGTH_SHORT).show();
             }
         });
