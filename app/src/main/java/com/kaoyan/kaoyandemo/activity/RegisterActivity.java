@@ -10,17 +10,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kaoyan.kaoyandemo.R;
+import com.kaoyan.kaoyandemo.utils.Api;
 import com.kaoyan.kaoyandemo.utils.Urls;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends BaseActivity {
 
@@ -100,39 +111,36 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void register() {
-        FinalHttp finalHttp = new FinalHttp();
-        AjaxParams params = new AjaxParams();
+        Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("http://wxooxw.com:8180/kaoyan/kaoyanController/") // 设置 网络请求 Url
+            .addConverterFactory(GsonConverterFactory.create()) //设置使用Gson解析(记得加入依赖)
+            .build();
+        Api api = retrofit.create(Api.class);
+        Map<String, String> params = new HashMap<>();
         params.put("userName", username.getText().toString());
         params.put("pwd", pwd.getText().toString());
         params.put("realName", name.getText().toString());
         params.put("enrollmentYear", time.getText().toString());
         params.put("sex", sex.getText().toString());
         params.put("majorId", majorId);
-        finalHttp.get(Urls.URL + "register?", params, new AjaxCallBack<Object>() {
-
+        params.put("phone", phone.getText().toString());
+        Call<Object> call = api.register(new JSONObject(params).toString());
+        call.enqueue(new Callback<Object>() {
             @Override
-            public void onStart() {
-                super.onStart();
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.putExtra("account", username.getText().toString());
+                    intent.putExtra("pwd", pwd.getText().toString());
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
             }
 
             @Override
-            public void onLoading(long count, long current) {
-                super.onLoading(count, current);
-            }
-
-            @Override
-            public void onSuccess(Object o) {
-                Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent();
-                intent.putExtra("account", username.getText().toString());
-                intent.putExtra("pwd", pwd.getText().toString());
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-
-            @Override
-            public void onFailure(Throwable t, int errorNo, String strMsg) {
-                super.onFailure(t, errorNo, strMsg);
+            public void onFailure(Call<Object> call, Throwable t) {
+                Toast.makeText(RegisterActivity.this, "注册失败，请稍后再试", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -142,7 +150,7 @@ public class RegisterActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
             if (requestCode == 0) {
-                majorId = data.getStringExtra("majorId");
+                majorId = data.getStringExtra("majorid");
                 major.setText(data.getStringExtra("majorname"));
             }
         }

@@ -20,6 +20,11 @@ public class SchoolAdapter extends RecyclerView.Adapter {
 
     private Context context;
     private List list;
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
     public SchoolAdapter(Context context, List list) {
         this.context = context;
@@ -37,6 +42,13 @@ public class SchoolAdapter extends RecyclerView.Adapter {
         ViewHolder viewHolder = (ViewHolder) holder;
         viewHolder.schoolid.setText(((Map) list.get(position)).get("schoolid") + "");
         viewHolder.schoolname.setText(((Map) list.get(position)).get("schoolname") + "");
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemClickListener.onItemClick(((Map) list.get(position)).get("schoolid") + "",
+                    ((Map) list.get(position)).get("schoolname") + "");
+            }
+        });
     }
 
     @Override
@@ -54,5 +66,10 @@ public class SchoolAdapter extends RecyclerView.Adapter {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+
+    public interface OnItemClickListener {
+        void onItemClick(String schoolid, String schoolname);
     }
 }

@@ -21,7 +21,10 @@ import com.kaoyan.kaoyandemo.R;
 import com.kaoyan.kaoyandemo.activity.SearchActivity;
 import com.kaoyan.kaoyandemo.adapter.SearchAdapter;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,6 +56,29 @@ public class SearchFragment extends Fragment {
     }
 
     private void getSearchList() {
+//        Retrofit retrofit = new Retrofit.Builder()
+//            .baseUrl("http://wxooxw.com:8180/kaoyan/kaoyanController/") // 设置 网络请求 Url
+//            .addConverterFactory(GsonConverterFactory.create()) //设置使用Gson解析(记得加入依赖)
+//            .build();
+//        Api api = retrofit.create(Api.class);
+//        Map<String, String> params = new HashMap<>();
+//        params.put("typeid", "0");
+//        params.put("keyword", "");
+//
+//        String vars = new JSONObject(params).toString();
+//        Call<Object> call = api.kaoyanList(vars);
+//        call.enqueue(new Callback<Object>() {
+//            @Override
+//            public void onResponse(Call<Object> call, Response<Object> response) {
+//                if (response.isSuccessful()) {
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Object> call, Throwable t) {
+//                Toast.makeText(getContext(), "请稍后再试", Toast.LENGTH_SHORT).show();
+//            }
+//        });
         String json = "[\n" +
             "    {\n" +
             "        \"schoolName\":\"名称\",\n" +

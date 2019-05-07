@@ -15,8 +15,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kaoyan.kaoyandemo.R;
+import com.kaoyan.kaoyandemo.activity.LoginActivity;
 import com.kaoyan.kaoyandemo.activity.MyCollectActivity;
 import com.kaoyan.kaoyandemo.activity.MyInformationActivity;
+import com.kaoyan.kaoyandemo.activity.SettingsActivity;
 import com.kaoyan.kaoyandemo.utils.SharedPreferencesUtils;
 
 /**
@@ -38,12 +40,17 @@ public class MyFragment extends Fragment {
         // Inflate the layout for this fragment
         View inflate = inflater.inflate(R.layout.fragment_my, container, false);
         ButterKnife.bind(this, inflate);
-        if (SharedPreferencesUtils.getLoggedStatus(getContext())) {
-            login.setVisibility(View.VISIBLE);
-        } else {
-            login.setVisibility(View.GONE);
-        }
         return inflate;
+    }
+
+    @Override
+    public void onResume() {
+        if (SharedPreferencesUtils.getLoggedStatus(getContext())) {
+            login.setVisibility(View.GONE);
+        } else {
+            login.setVisibility(View.VISIBLE);
+        }
+        super.onResume();
     }
 
     @OnClick(R.id.information)
@@ -54,5 +61,16 @@ public class MyFragment extends Fragment {
     @OnClick(R.id.collect)
     public void collectClick() {
         startActivity(new Intent(getContext(), MyCollectActivity.class));
+    }
+
+    @OnClick(R.id.settings)
+    public void settingsClick() {
+        SharedPreferencesUtils.setAttentionSchool(getContext(), "");
+        startActivity(new Intent(getContext(), SettingsActivity.class));
+    }
+
+    @OnClick(R.id.login)
+    public void loginClick() {
+        startActivity(new Intent(getContext(), LoginActivity.class));
     }
 }

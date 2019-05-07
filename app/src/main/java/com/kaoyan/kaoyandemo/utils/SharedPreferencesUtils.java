@@ -16,20 +16,26 @@ public class SharedPreferencesUtils {
         editor.apply();
     }
 
+    public static String getUserId(Context context) {
+        return context.getSharedPreferences(USER, MODE_PRIVATE).getString("userId", "");
+    }
+
+    public static void setUserId(Context context, String userId) {
+        SharedPreferences sharedpreferences = context.getSharedPreferences(USER, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("userId", userId);
+        editor.apply();
+    }
+
     public static boolean getLoggedStatus(Context context) {
         return context.getSharedPreferences(USER, MODE_PRIVATE).getBoolean("isLogged", false);
     }
 
-    public static void setAttentionSchool(Context context, String name, int num) {
+    public static void setAttentionSchool(Context context, String name) {
         SharedPreferences sharedpreferences = context.getSharedPreferences(USER, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString("schoolName", name);
-        editor.putInt("schoolNum", num);
         editor.apply();
-    }
-
-    public static int getAttentionSchoolNum(Context context) {
-        return context.getSharedPreferences(USER, MODE_PRIVATE).getInt("schoolNum", 0);
     }
 
     public static String getAttentionSchoolName(Context context) {

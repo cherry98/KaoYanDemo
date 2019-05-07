@@ -1,6 +1,7 @@
 package com.kaoyan.kaoyandemo.activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.alibaba.fastjson.JSON;
@@ -60,7 +61,16 @@ public class SchoolActivity extends BaseActivity{
         recyclerSchoolView.setLayoutManager(layoutManager);
         recyclerSchoolView.setHasFixedSize(true);
         recyclerSchoolView.setAdapter(schoolAdapter);
+
+        schoolAdapter.setOnItemClickListener(new SchoolAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(String schoolid, String schoolname) {
+                Intent intent = new Intent();
+                intent.putExtra("schoolid", schoolid);
+                intent.putExtra("schoolname", schoolname);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
     }
-
-
 }
