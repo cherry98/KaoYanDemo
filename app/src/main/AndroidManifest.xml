@@ -27,7 +27,9 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.PostMessageActivity" />
         <activity android:name=".activity.MyInformationActivity" />
-        <activity android:name=".activity.MyCollectActivity"></activity>
+        <activity android:name=".activity.MyCollectActivity" />
+        <activity android:name=".activity.SchoolActivity" />
+        <activity android:name=".activity.MajorActivity"/>
     </application>
 
 </manifest>
