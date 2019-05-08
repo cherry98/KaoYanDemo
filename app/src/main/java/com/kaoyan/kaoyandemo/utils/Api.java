@@ -6,6 +6,9 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
+/**
+ * 网络请求调用接口
+ */
 public interface Api {
 
     @FormUrlEncoded
@@ -55,4 +58,11 @@ public interface Api {
     @POST("schoolList")
     Call<ResponseBody> schoolList();
 
+    @FormUrlEncoded
+    @POST("setPostMessage")
+    Call<ResponseBody> setPostMessage(@Field("vars") String vars);
+
+    @FormUrlEncoded
+    @POST("messageList")
+    Call<ResponseBody> messageList(@Field("vars") String vars);
 }

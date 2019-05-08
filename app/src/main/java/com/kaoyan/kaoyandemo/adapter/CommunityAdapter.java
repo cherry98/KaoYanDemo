@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kaoyan.kaoyandemo.R;
@@ -52,12 +53,12 @@ public class CommunityAdapter extends RecyclerView.Adapter {
             viewHolder.collect.setVisibility(View.VISIBLE);
             viewHolder.collect.setChecked(communityInfo.isCheck());
         }
-        viewHolder.collect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickCollectListener.click(position, viewHolder.collect.isChecked());
-            }
-        });
+        viewHolder.collect.setOnClickListener(view ->
+            onClickCollectListener.click(position, viewHolder.collect.isChecked()));
+        viewHolder.comment.setOnClickListener(view ->
+            onClickCollectListener.comment(position));
+        viewHolder.itemView.setOnClickListener(view ->
+            onClickCollectListener.onItemClick(position));
     }
 
     @Override
@@ -70,10 +71,10 @@ public class CommunityAdapter extends RecyclerView.Adapter {
         TextView name;
         @BindView(R.id.content)
         TextView content;
-        @BindView(R.id.time)
-        TextView time;
         @BindView(R.id.collect)
         CheckBox collect;
+        @BindView(R.id.comment)
+        ImageView comment;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,6 +83,10 @@ public class CommunityAdapter extends RecyclerView.Adapter {
     }
 
     public interface OnClickCollectListener {
-        void click(int postion, boolean isAdd);
+        void click(int position, boolean isAdd);
+
+        void comment(int position);
+
+        void onItemClick(int position);
     }
 }

@@ -19,12 +19,12 @@
             android:layout_weight="1"
             android:text="昵称" />
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="发布时间"
-            android:visibility="gone" />
+        <CheckBox
+            android:id="@+id/collect"
+            style="@style/checkbox_style"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:checked="false" />
     </LinearLayout>
 
     <LinearLayout
@@ -43,11 +43,11 @@
             android:layout_weight="1"
             android:text="发布内容" />
 
-        <CheckBox
-            android:id="@+id/collect"
-            style="@style/checkbox_style"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:checked="false" />
+        <ImageView
+            android:id="@+id/comment"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_comment" />
     </LinearLayout>
 </LinearLayout>

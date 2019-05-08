@@ -1,9 +1,11 @@
 package com.kaoyan.kaoyandemo.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kaoyan.kaoyandemo.R;
@@ -15,6 +17,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,9 +37,10 @@ public class MyInformationActivity extends BaseActivity {
     @BindView(R.id.phone)
     EditText phone;
     @BindView(R.id.school)
-    EditText school;
+    TextView school;
     @BindView(R.id.major)
-    EditText major;
+    TextView major;
+    private String majorId, schoolid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,16 @@ public class MyInformationActivity extends BaseActivity {
         ButterKnife.bind(this);
         setToolBar();
         getuserData();
+    }
+
+    @OnClick(R.id.school)
+    public void schoolClick() {
+        startActivityForResult(new Intent(this, SchoolActivity.class), 0);
+    }
+
+    @OnClick(R.id.major)
+    public void majorClick() {
+        startActivityForResult(new Intent(this, MajorActivity.class), 1);
     }
 
     private void getuserData() {
@@ -125,10 +139,54 @@ public class MyInformationActivity extends BaseActivity {
         Api api = retrofit.create(Api.class);
         Map<String, String> params = new HashMap<>();
         params.put("userId", SharedPreferencesUtils.getUserId(this));
-
+        params.put("realName", name.getText().toString());
+        params.put("phone", phone.getText().toString());
+        params.put("sex", sex.getText().toString());
+        if (!TextUtils.isEmpty(schoolid)) {
+            params.put("schoolId", schoolid);
+        }
+        if (!TextUtils.isEmpty(majorId)) {
+            params.put("majorId", majorId);
+        }
         String vars = new JSONObject(params).toString();
-        Call<ResponseBody> call = api.userData(vars);
+        Call<ResponseBody> call = api.editUserData(vars);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String str = new String(response.body().bytes());
 
+                    JSONObject jsonObject = new JSONObject(str);
+                    int status = jsonObject.getInt("status");
+                    if (status == 1) {
+                        Toast.makeText(MyInformationActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MyInformationActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && data != null) {
+            if (requestCode == 0) {
+                schoolid = data.getStringExtra("schoolid");
+                school.setText(data.getStringExtra("schoolname"));
+            } else if (requestCode == 1) {
+                majorId = data.getStringExtra("majorid");
+                major.setText(data.getStringExtra("majorname"));
+            }
+        }
+    }
 }
