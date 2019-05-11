@@ -18,6 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 社区页面适配器
+ */
 public class CommunityAdapter extends RecyclerView.Adapter {
 
     private Context context;
@@ -25,6 +28,7 @@ public class CommunityAdapter extends RecyclerView.Adapter {
     private boolean isMyCollect;
     private OnClickCollectListener onClickCollectListener;
 
+    //该适配器供社区列表和我的收藏列表使用  isMyCollect为true代表是我的收藏  为false是社区
     public CommunityAdapter(Context context, List<CommunityInfo> list, boolean isMyCollect) {
         this.context = context;
         this.list = list;
@@ -49,16 +53,18 @@ public class CommunityAdapter extends RecyclerView.Adapter {
         viewHolder.content.setText(communityInfo.getContent());
         if (isMyCollect) {
             viewHolder.collect.setVisibility(View.GONE);
+            viewHolder.comment.setVisibility(View.GONE);
         } else {
+            viewHolder.comment.setVisibility(View.VISIBLE);
             viewHolder.collect.setVisibility(View.VISIBLE);
             viewHolder.collect.setChecked(communityInfo.isCheck());
+            viewHolder.collect.setOnClickListener(view ->
+                onClickCollectListener.click(position, viewHolder.collect.isChecked()));
+            viewHolder.comment.setOnClickListener(view ->
+                onClickCollectListener.comment(position));
+            viewHolder.itemView.setOnClickListener(view ->
+                onClickCollectListener.onItemClick(position));
         }
-        viewHolder.collect.setOnClickListener(view ->
-            onClickCollectListener.click(position, viewHolder.collect.isChecked()));
-        viewHolder.comment.setOnClickListener(view ->
-            onClickCollectListener.comment(position));
-        viewHolder.itemView.setOnClickListener(view ->
-            onClickCollectListener.onItemClick(position));
     }
 
     @Override
@@ -82,11 +88,12 @@ public class CommunityAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public interface OnClickCollectListener {
-        void click(int position, boolean isAdd);
+    public interface OnClickCollectListener {//自定义接口
 
-        void comment(int position);
+        void click(int position, boolean isAdd);//点击收藏按钮
 
-        void onItemClick(int position);
+        void comment(int position);//点击评论按钮
+
+        void onItemClick(int position);//点击整条数据  进去评论栗彪
     }
 }

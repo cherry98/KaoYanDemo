@@ -83,7 +83,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private void createMyFragment() {
+    private void createMyFragment() {//显示我的模块
         this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         if (fragmentManager == null) {
             fragmentManager = getSupportFragmentManager();
@@ -98,7 +98,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         fragmentTransaction.commit();
     }
 
-    private void createCommunityFragment() {
+    private void createCommunityFragment() {//显示社区模块
         this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         if (fragmentManager == null) {
             fragmentManager = getSupportFragmentManager();
@@ -113,7 +113,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         fragmentTransaction.commit();
     }
 
-    private void createAttentionFragment() {
+    private void createAttentionFragment() {//显示关注模块
         this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         if (fragmentManager == null) {
             fragmentManager = getSupportFragmentManager();
@@ -128,7 +128,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         fragmentTransaction.commit();
     }
 
-    private void createSearchFragment() {
+    private void createSearchFragment() {//显示搜索模块
         this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         if (fragmentManager == null) {
             fragmentManager = getSupportFragmentManager();

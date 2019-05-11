@@ -9,7 +9,7 @@ public class SharedPreferencesUtils {
 
     private static final String USER = "user";
 
-    public static void setLoggedStatus(Context context, boolean isLogged) {
+    public static void setLoggedStatus(Context context, boolean isLogged) {//存储登录状态
         SharedPreferences sharedpreferences = context.getSharedPreferences(USER, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putBoolean("isLogged", isLogged);
@@ -20,7 +20,7 @@ public class SharedPreferencesUtils {
         return context.getSharedPreferences(USER, MODE_PRIVATE).getString("userId", "");
     }
 
-    public static void setUserId(Context context, String userId) {
+    public static void setUserId(Context context, String userId) {//存储用户的userId 是每个用户的唯一标识
         SharedPreferences sharedpreferences = context.getSharedPreferences(USER, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString("userId", userId);
@@ -31,14 +31,4 @@ public class SharedPreferencesUtils {
         return context.getSharedPreferences(USER, MODE_PRIVATE).getBoolean("isLogged", false);
     }
 
-    public static void setAttentionSchool(Context context, String name) {
-        SharedPreferences sharedpreferences = context.getSharedPreferences(USER, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("schoolName", name);
-        editor.apply();
-    }
-
-    public static String getAttentionSchoolName(Context context) {
-        return context.getSharedPreferences(USER, MODE_PRIVATE).getString("schoolName", "");
-    }
 }

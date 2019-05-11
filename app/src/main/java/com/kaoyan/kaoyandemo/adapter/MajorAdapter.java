@@ -17,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 专业列表适配器
+ */
 public class MajorAdapter extends RecyclerView.Adapter {
 
     private Context context;

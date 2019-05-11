@@ -34,6 +34,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * 学校列表
+ */
 public class SchoolActivity extends BaseActivity {
     @BindView(R.id.recyclerSchoolView)
     RecyclerView recyclerSchoolView;

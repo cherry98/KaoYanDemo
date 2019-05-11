@@ -65,4 +65,12 @@ public interface Api {
     @FormUrlEncoded
     @POST("messageList")
     Call<ResponseBody> messageList(@Field("vars") String vars);
+
+    @FormUrlEncoded
+    @POST("getAllCollectSchool")
+    Call<ResponseBody> getAllCollectSchool(@Field("vars") String vars);
+
+    @FormUrlEncoded
+    @POST("getAllCollectSchoolKaoyanData")
+    Call<ResponseBody> getAllCollectSchoolKaoyanData(@Field("vars") String vars);
 }

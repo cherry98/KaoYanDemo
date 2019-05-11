@@ -16,6 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 考研信息列表适配器
+ */
 public class SearchAdapter extends RecyclerView.Adapter {
 
     private Context context;

@@ -34,6 +34,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 首页搜索页面
+ */
 public class SearchActivity extends BaseActivity {
 
     @BindView(R.id.recyclerView)

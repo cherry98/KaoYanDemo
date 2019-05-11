@@ -10,6 +10,9 @@ import com.kaoyan.kaoyandemo.utils.SharedPreferencesUtils;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 欢迎页面
+ */
 public class SplashActivity extends BaseActivity {
 
     @Override

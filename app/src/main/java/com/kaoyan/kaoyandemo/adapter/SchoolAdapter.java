@@ -17,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 学校列表适配器
+ */
 public class SchoolAdapter extends RecyclerView.Adapter {
 
     private Context context;

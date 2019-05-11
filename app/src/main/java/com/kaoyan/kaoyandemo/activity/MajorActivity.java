@@ -30,6 +30,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * 专业信息列表
+ */
 public class MajorActivity extends BaseActivity {
 
     @BindView(R.id.recyclerMajorView)

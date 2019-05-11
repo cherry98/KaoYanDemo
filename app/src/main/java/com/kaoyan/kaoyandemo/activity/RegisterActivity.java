@@ -124,13 +124,24 @@ public class RegisterActivity extends BaseActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent();
-                    intent.putExtra("account", username.getText().toString());
-                    intent.putExtra("pwd", pwd.getText().toString());
-                    setResult(RESULT_OK, intent);
-                    finish();
+                try {
+                    String str = new String(response.body().bytes());
+
+                    JSONObject jsonObject = new JSONObject(str);
+                    int status = jsonObject.getInt("status");
+                    if (status == 1) {
+                        Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent();
+                        intent.putExtra("account", username.getText().toString());
+                        intent.putExtra("pwd", pwd.getText().toString());
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    } else {
+                        Toast.makeText(RegisterActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 

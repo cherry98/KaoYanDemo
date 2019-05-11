@@ -25,6 +25,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * 发布帖子页面
+ */
 public class PostMessageActivity extends BaseActivity {
 
     @BindView(R.id.title)

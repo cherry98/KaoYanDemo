@@ -22,7 +22,7 @@ import com.kaoyan.kaoyandemo.activity.SettingsActivity;
 import com.kaoyan.kaoyandemo.utils.SharedPreferencesUtils;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 我的模块
  */
 public class MyFragment extends Fragment {
 
@@ -65,7 +65,6 @@ public class MyFragment extends Fragment {
 
     @OnClick(R.id.settings)
     public void settingsClick() {
-        SharedPreferencesUtils.setAttentionSchool(getContext(), "");
         startActivity(new Intent(getContext(), SettingsActivity.class));
     }
 

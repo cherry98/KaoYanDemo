@@ -29,6 +29,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * 个人资料页面
+ */
 public class MyInformationActivity extends BaseActivity {
     @BindView(R.id.name)
     EditText name;
@@ -160,6 +163,7 @@ public class MyInformationActivity extends BaseActivity {
                     int status = jsonObject.getInt("status");
                     if (status == 1) {
                         Toast.makeText(MyInformationActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                        finish();
                     } else {
                         Toast.makeText(MyInformationActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }

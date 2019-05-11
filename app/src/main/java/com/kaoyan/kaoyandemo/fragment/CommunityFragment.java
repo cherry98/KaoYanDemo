@@ -50,7 +50,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 社区模块
  */
 public class CommunityFragment extends Fragment {
 

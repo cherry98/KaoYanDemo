@@ -9,6 +9,9 @@ import android.os.Bundle;
 import com.kaoyan.kaoyandemo.R;
 import com.kaoyan.kaoyandemo.utils.SharedPreferencesUtils;
 
+/**
+ * 设置页面
+ */
 public class SettingsActivity extends BaseActivity {
 
     @Override

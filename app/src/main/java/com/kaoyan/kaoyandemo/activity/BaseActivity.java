@@ -1,9 +1,13 @@
 package com.kaoyan.kaoyandemo.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.MenuItem;
 
+/**
+ * 所有activity的基类
+ */
 public class BaseActivity extends AppCompatActivity {
 
     @Override

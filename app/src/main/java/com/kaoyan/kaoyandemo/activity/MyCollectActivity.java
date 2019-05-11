@@ -31,6 +31,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * 我的收藏列表
+ */
 public class MyCollectActivity extends BaseActivity {
 
 
@@ -73,27 +76,27 @@ public class MyCollectActivity extends BaseActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        String str = new String(response.body().bytes());
-                        JSONObject jsonObject = new JSONObject(str);
-                        int status = jsonObject.getInt("status");
-                        if (status == 1) {
-                            JSONArray jsonArray = jsonObject.optJSONArray("result");
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject jsonObject1 = jsonArray.optJSONObject(i);
-                                CommunityInfo communityInfo = new CommunityInfo();
-                                communityInfo.setContent(jsonObject1.getString("content"));
-                                communityInfo.setCollectId(jsonObject1.getString("collectId"));
-                                communityInfo.setTitle(jsonObject1.getString("title"));
-                                list.add(communityInfo);
-                            }
-                            communityAdapter.notifyDataSetChanged();
-                        } else {
-                            Toast.makeText(MyCollectActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                try {
+                    String str = new String(response.body().bytes());
+                    JSONObject jsonObject = new JSONObject(str);
+                    int status = jsonObject.getInt("status");
+                    if (status == 1) {
+                        JSONArray jsonArray = jsonObject.optJSONArray("result");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject1 = jsonArray.optJSONObject(i);
+                            CommunityInfo communityInfo = new CommunityInfo();
+                            communityInfo.setContent(jsonObject1.getString("content"));
+                            communityInfo.setCollectId(jsonObject1.getString("collectId"));
+                            communityInfo.setTitle(jsonObject1.getString("title"));
+                            list.add(communityInfo);
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        communityAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(MyCollectActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

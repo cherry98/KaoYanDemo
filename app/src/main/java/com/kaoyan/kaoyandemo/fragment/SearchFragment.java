@@ -39,7 +39,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 搜索
  */
 public class SearchFragment extends Fragment {
 
