@@ -210,19 +210,17 @@ public class AttentionFragment extends Fragment {
             String schoolname = data.getStringExtra("schoolname");
             String schoolid = data.getStringExtra("schoolid");
             if (requestCode == 1) {//设置第一个按钮的关注结果
-                add1.setText(schoolname);
-                setCollect(schoolid, collectId1);
+                setCollect(schoolid, collectId1, 1, schoolname);
             } else if (requestCode == 2) {
-                add2.setText(schoolname);
-                setCollect(schoolid, collectId2);
+                setCollect(schoolid, collectId2, 2, schoolname);
             } else if (requestCode == 3) {
                 add3.setText(schoolname);
-                setCollect(schoolid, collectId3);
+                setCollect(schoolid, collectId3, 3, schoolname);
             }
         }
     }
 
-    private void setCollect(String collectTypeId, String collectId) {
+    private void setCollect(String collectTypeId, String collectId, int num, String schoolname) {
         Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://wxooxw.com:8180/kaoyan/kaoyanController/") // 设置 网络请求 Url
             .addConverterFactory(GsonConverterFactory.create()) //设置使用Gson解析(记得加入依赖)
@@ -245,6 +243,13 @@ public class AttentionFragment extends Fragment {
                     int status = jsonObject.getInt("status");
                     if (status == 1) {
                         Toast.makeText(getContext(), "关注成功", Toast.LENGTH_SHORT).show();
+                        if (num == 1) {
+                            add1.setText(schoolname);
+                        } else if (num == 2) {
+                            add2.setText(schoolname);
+                        } else {
+                            add3.setText(schoolname);
+                        }
                     } else {
                         Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }
