@@ -49,8 +49,9 @@ public class CommunityAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         CommunityInfo communityInfo = list.get(position);
-        viewHolder.name.setText(communityInfo.getTitle());
-        viewHolder.content.setText(communityInfo.getContent());
+        viewHolder.title.setText("标题：" + communityInfo.getTitle());
+        viewHolder.content.setText("内容：" + communityInfo.getContent());
+        viewHolder.realname.setText("发帖人：" + communityInfo.getRealName());
         if (isMyCollect) {
             viewHolder.collect.setVisibility(View.GONE);
             viewHolder.comment.setVisibility(View.GONE);
@@ -73,14 +74,16 @@ public class CommunityAdapter extends RecyclerView.Adapter {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.name)
-        TextView name;
+        @BindView(R.id.title)
+        TextView title;
         @BindView(R.id.content)
         TextView content;
         @BindView(R.id.collect)
         CheckBox collect;
         @BindView(R.id.comment)
         ImageView comment;
+        @BindView(R.id.realname)
+        TextView realname;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

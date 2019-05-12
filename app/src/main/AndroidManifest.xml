@@ -40,6 +40,7 @@
         <activity android:name=".activity.MajorActivity" />
         <activity android:name=".activity.SettingsActivity" />
         <activity android:name=".activity.CommentActivity" />
+        <activity android:name=".activity.MyPostActivity" />
     </application>
 
 </manifest>

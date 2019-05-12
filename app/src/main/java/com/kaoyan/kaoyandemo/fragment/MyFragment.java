@@ -18,6 +18,7 @@ import com.kaoyan.kaoyandemo.R;
 import com.kaoyan.kaoyandemo.activity.LoginActivity;
 import com.kaoyan.kaoyandemo.activity.MyCollectActivity;
 import com.kaoyan.kaoyandemo.activity.MyInformationActivity;
+import com.kaoyan.kaoyandemo.activity.MyPostActivity;
 import com.kaoyan.kaoyandemo.activity.SettingsActivity;
 import com.kaoyan.kaoyandemo.utils.SharedPreferencesUtils;
 
@@ -61,6 +62,11 @@ public class MyFragment extends Fragment {
     @OnClick(R.id.collect)
     public void collectClick() {
         startActivity(new Intent(getContext(), MyCollectActivity.class));
+    }
+
+    @OnClick(R.id.post)
+    public void postClick() {
+        startActivity(new Intent(getContext(), MyPostActivity.class));
     }
 
     @OnClick(R.id.settings)

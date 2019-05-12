@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -48,6 +49,8 @@ public class SearchFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @BindView(R.id.day)
+    TextView day;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     private ArrayList<SearchInfo> list = new ArrayList<>();
@@ -78,12 +81,40 @@ public class SearchFragment extends Fragment {
             .addConverterFactory(GsonConverterFactory.create()) //设置使用Gson解析(记得加入依赖)
             .build();
         Api api = retrofit.create(Api.class);
+        Call<ResponseBody> call;
+        call = api.getDay();//倒计时
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String str = new String(response.body().bytes());
+
+                    JSONObject jsonObject = new JSONObject(str);
+                    int status = jsonObject.getInt("status");
+                    if (status == 1) {
+                        day.setText(jsonObject.getString("result"));
+                    } else {
+                        Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+
         Map<String, String> params = new HashMap<>();
         params.put("typeid", "0");
         params.put("keyword", "");
 
         String vars = new JSONObject(params).toString();
-        Call<ResponseBody> call = api.kaoyanList(vars);
+        call = api.kaoyanList(vars);//考研信息
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

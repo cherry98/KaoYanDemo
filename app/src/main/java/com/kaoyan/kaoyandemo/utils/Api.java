@@ -58,6 +58,9 @@ public interface Api {
     @POST("schoolList")
     Call<ResponseBody> schoolList();
 
+    @POST("getDay")
+    Call<ResponseBody> getDay();
+
     @FormUrlEncoded
     @POST("setPostMessage")
     Call<ResponseBody> setPostMessage(@Field("vars") String vars);

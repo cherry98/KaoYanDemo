@@ -165,6 +165,7 @@ public class CommunityFragment extends Fragment {
             params.put("userId", SharedPreferencesUtils.getUserId(getContext()));
             params.put("collectType", "1");
             params.put("collectTypeId", list.get(position).getPostId());
+            params.put("collectId", "");
             String vars = new JSONObject(params).toString();
             call = api.setCollect(vars);
         } else {
@@ -207,7 +208,7 @@ public class CommunityFragment extends Fragment {
         Api api = retrofit.create(Api.class);
         Map<String, String> params = new HashMap<>();
         params.put("userId", SharedPreferencesUtils.getUserId(getContext()));
-
+        params.put("type", "1");
         String vars = new JSONObject(params).toString();
         Call<ResponseBody> call = api.postList(vars);
         call.enqueue(new Callback<ResponseBody>() {
@@ -230,6 +231,7 @@ public class CommunityFragment extends Fragment {
                             communityInfo.setCheck(!TextUtils.isEmpty(jsonObject1.getString("collectId")));
                             communityInfo.setPostId(jsonObject1.getString("postId"));
                             communityInfo.setTitle(jsonObject1.getString("title"));
+                            communityInfo.setRealName(jsonObject1.getString("realName"));
                             list.add(communityInfo);
                         }
                         communityAdapter.notifyDataSetChanged();

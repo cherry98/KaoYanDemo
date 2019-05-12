@@ -14,6 +14,15 @@ public class CommunityInfo {
     private String title;
     private String content;
     private boolean isCheck;
+    private String realName;
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
 
     public boolean isCheck() {
         return isCheck;

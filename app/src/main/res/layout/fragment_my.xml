@@ -58,6 +58,27 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/post"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="3dp"
+            android:src="@drawable/ic_collect" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="我的发帖" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/settings"
         android:layout_width="match_parent"
         android:layout_height="50dp"

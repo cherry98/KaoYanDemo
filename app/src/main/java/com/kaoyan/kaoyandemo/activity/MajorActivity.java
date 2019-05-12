@@ -74,7 +74,7 @@ public class MajorActivity extends BaseActivity {
             .build();
         Api api = retrofit.create(Api.class);
         Map<String, String> params = new HashMap<>();
-        params.put("schoolId ", "0");
+        params.put("schoolId", "0");
         String var = new JSONObject(params).toString();
         Call<ResponseBody> call = api.majorList(var);
         call.enqueue(new Callback<ResponseBody>() {
